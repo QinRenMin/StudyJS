@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽上传图片</title>
+    <style type="text/css">
+        #div1{
+            position: relative;
+            width: 400px;
+            height:200px;
+            background: gray;
+            left:20px;
+        }
+        #div2{
+            width: 800px;
+            height: 400px;
+            position: relative;
+            left:20px;
+            top:10px;
+            border: 1px solid yellowgreen;
+        }
+        ul{
+            position: absolute;
+
+        }
+        ul li{
+            display: inline-block;
+            margin-top: 4px;
+            list-style: none;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            let oDiv = document.querySelector("#div1");
+            let oUl = document.querySelector("#ul1");
+
+            oDiv.ondragenter = function(){
+
+                this.innerHTML = '可以释放啦';
+
+            };
+
+            oDiv.ondragover = function(ev){
+
+                ev.preventDefault();
+
+            };
+
+            oDiv.ondragleave = function(){
+
+                this.innerHTML = '将文件拖拽到此区域';
+
+            };
+            oDiv.ondrop = function (ev) {
+                ev.preventDefault();
+                //获取拖拽文件，返回filesList,type属性返回对应类型
+               let fs  = ev.dataTransfer.files;
+               console.log(fs.length);
+               console.log(fs[0].type);
+                //读取文件信息
+                let fd = new FileReader();
+                fd.onload = function(){
+                //  alert(fd.readAsDataURL(fs[0]));
+                };
+
+                for(let i=0;i<fs.length;i++){
+                    if(fs[i].type.indexOf('image')!==-1){
+
+                        fd.readAsDataURL( fs[i] );
+
+                        fd.onload = function(){
+
+                            let oLi = document.createElement('li');
+                            let oImg = document.createElement('img');
+                            oImg.src = this.result;
+                            oLi.appendChild(oImg);
+                            oUl.appendChild(oLi);
+                        };
+                    }
+                    else{
+                        alert('亲，请上传图片类型');
+                    }
+                }
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1">拖拽上传图片</div>
+<div id="div2">
+    <ul id="ul1"></ul>
+</div>
+</body>
+</html>

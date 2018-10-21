@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style type="text/css">
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: blanchedalmond;
+            position: absolute;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            let oDiv = document.getElementById('div1');
+            drag(oDiv);
+            function drag(obj) {
+
+                obj.onmousedown = function(ev) {
+                    ev = ev || event;
+
+                    const  disX = ev.clientX - this.offsetLeft;
+                    const  disY = ev.clientY - this.offsetTop;
+
+                    if ( obj.setCapture ) {
+                        obj.setCapture();
+                    }
+
+                    document.onmousemove = function(ev) {
+                        ev = ev || event;
+
+                        obj.style.left = ev.clientX - disX + 'px';
+                        obj.style.top = ev.clientY - disY + 'px';
+                    };
+
+                    document.onmouseup = function() {
+                        document.onmousemove = document.onmouseup = null;
+                        //释放全局捕获 releaseCapture();
+                        if ( obj.releaseCapture ) {
+                            obj.releaseCapture();
+                        }
+                    };
+                    return false;
+
+                }
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+
+</body>
+</html>

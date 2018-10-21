@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>限制范围的拖拽</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height:100px;
+            background: blanchedalmond;
+            position: absolute;
+        }
+        #div2{
+            width: 200px;
+            height:200px;
+            background: red;
+            left:600px;
+            top: 200px;
+            position: fixed;
+        }
+
+    </style>
+    <script type="text/javascript">
+       window.onload = function () {
+           let oDiv1 = document.getElementById('div1');
+           let oDiv2 = document.getElementById('div2');
+
+           drag(oDiv1);
+           function drag(obj) {
+               obj.onmousedown = function (ev) {
+                   ev = ev||event;
+                   if ( obj.setCapture ) {
+                       obj.setCapture();
+                   }
+                   const disX = ev.clientX - this.offsetLeft;
+                   const disY = ev.clientY - this.offsetTop;
+
+                   document.onmousemove = function (ev) {
+                       ev = ev || event;
+
+                       let L = ev.clientX - disX ;
+                       let T = ev.clientY - disY ;
+
+                       let L1 = L;
+                       let R1 = L + obj.offsetWidth;
+                       let T1 = T;
+                       let B1 = T + obj.offsetHeight;
+
+                       let L2 = oDiv2.offsetLeft;
+                       let R2 = L2 + oDiv2.offsetWidth;
+                       let T2 = oDiv2.offsetTop;
+                       let B2 = T2 + oDiv2.offsetHeight;
+
+                       if(R1<L2||L1>R2||T1 > B2||B1<T2){
+
+                           oDiv2.style.background='red';
+                           oDiv1.style.left = L +'px';
+                           oDiv1.style.top = T +'px';
+
+                       }else{oDiv2.style.background = 'green' ;alert('游戏结束');
+                           document.onmousemove = null;
+                       }
+
+                   };
+                   document.onmouseup = function () {
+                       document.onmousemove = document.onmouseup = null;
+                       //释放全局捕获 releaseCapture();
+                       if ( obj.releaseCapture ) {
+                           obj.releaseCapture();
+                       }
+                   };
+                   return false; //阻止默认事件
+               }
+           }
+       }
+
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件拖动</title>
+    <style type="text/css">
+        #mainDiv{
+            width: 800px;
+            height:400px;
+            border: 1px solid black;
+            position:relative;
+
+        }
+        .file{
+            width: 100px;
+            height: 140px;
+            float: left;
+            padding: 10px 20px;
+            overflow: hidden;
+            margin: 3px 40px 10px 10px;
+        }
+        .fileActive{
+
+            background: lightblue;
+
+
+        }
+
+        img{
+            width: 100px;
+            height: 100px;
+        }
+        p{
+            display: inline-block;
+            font: 14px/30px "宋体";
+            text-align: center;
+            margin-top: -15px;
+            margin-left: 10px;
+        }
+        .selections{
+            position: fixed;
+            border: 1px solid cornflowerblue;
+            background: lightblue;
+            opacity: .3;
+        }
+    </style>
+
+</head>
+<body>
+<input type="button" id="addFile" value="创建文件">
+<input type="checkbox" id="select" value="">全选
+<div id="mainDiv">
+</div>
+<script type="text/javascript">
+    (function () {
+        let addBtn = document.getElementById('addFile');
+        let mainDiv = document.getElementById('mainDiv');
+        let select = document.querySelector('#select');
+
+        //创建文件夹
+        addBtn.onclick = function () {
+            let newFile = document.createElement("div");
+            newFile.innerHTML=` <input type="checkbox"/>
+        <br>
+        <img src="文件.png" alt="">
+        <br>
+        <p contenteditable = true>新建文件夹</p>`;
+            newFile.setAttribute('class','file');
+            mainDiv.appendChild(newFile);
+
+        };
+        addBtn.onmousedown = function(e){
+            e = e||event;
+            e.cancelBubble = true;
+        };
+        //移入移出效果
+        mainDiv.addEventListener('mouseover',function (e) {
+            e = e|| event;
+            if(e.target.classList.contains('file')){
+                    e.target.classList.add('fileActive');
+            }
+            e.cancelBubble = true;
+            return false;
+        });
+        mainDiv.addEventListener('mouseout',function (e) {
+            e = e||event;
+            if(e.target.classList.contains('file')){
+                e.target.classList.remove('fileActive');
+            }
+        });
+        //全选和全不选
+        select.onclick=function () {
+
+            let aChecked = mainDiv.getElementsByTagName('input');
+            for(let i = 0; i < aChecked.length; i++){
+                aChecked[i].checked = select.checked;
+            }
+        };
+        select.onmousedown = function(e){
+            e = e||event;
+            e.cancelBubble = true;
+        };
+        //框选
+        document.onmousedown = function (ev) {
+            let allFile = document.querySelectorAll('.file');
+            ev = ev || event;
+            let selection = document.createElement('div');
+            selection.setAttribute('class', 'selections');
+            let aChecked = mainDiv.getElementsByTagName('input');
+            let startClient = {
+                x: ev.clientX,
+                y: ev.clientY
+            };
+            document.body.appendChild(selection);
+            document.onmousemove = function (ev) {
+                ev = ev || event;
+                let nowClient = {
+                    x: ev.clientX,
+                    y: ev.clientY
+                };
+                //画框的大小
+                selection.style.width = Math.abs(nowClient.x - startClient.x) + 'px';
+                selection.style.height = Math.abs(nowClient.y - startClient.y) + 'px';
+                //确定鼠标所在的位置(左边和上边)
+                selection.style.left = Math.min(nowClient.x, startClient.x) + 'px';
+                selection.style.top = Math.min(nowClient.y, startClient.y) + 'px';
+
+                allFile.forEach(function (item, index) {
+
+                    aChecked[index].checked = isTrap(item, selection);
+                });
+               
+
+            };
+
+
+
+
+
+
+            //删除框
+            document.onmouseup = function () {
+                // ev=ev||event;
+
+                document.body.removeChild(selection);
+
+                document.onmouseup = document.onmousemove = null;
+
+
+            };
+            return false;
+        };
+        //碰撞检测
+        function isTrap(div1,div2) {
+            let div1Rect = div1.getBoundingClientRect();
+            let div2Rect = div2.getBoundingClientRect();
+
+            return !(div1Rect.left > div2Rect.right || div1Rect.right < div2Rect.left || div1Rect.top > div2Rect.bottom
+                || div1Rect.bottom < div2Rect.top);
+
+        }
+
+    })();
+
+</script>
+</body>
+</html>

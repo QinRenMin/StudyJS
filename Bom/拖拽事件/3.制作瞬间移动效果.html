@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>吸附效果</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: blanchedalmond;
+            position: absolute;
+            z-index: 1;
+        }
+        #div2{
+            width: 200px;
+            height:200px;
+            background: red;
+            left: 0;
+            top: 200px;
+            position: fixed;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            let oDiv = document.getElementById('div1');
+            drag(oDiv);
+            function drag(obj) {
+
+                obj.onmousedown = function(ev) {
+                    ev = ev || event;
+
+                    const  disX = ev.clientX - this.offsetLeft;
+                    const  disY = ev.clientY - this.offsetTop;
+
+                    if ( obj.setCapture ) {
+                        obj.setCapture();
+                    }
+
+                    document.onmousemove = function(ev) {
+                        ev = ev || event;
+
+                        var L = ev.clientX - disX;
+                        if(L < 400){
+                            L = 0;
+                        }
+                        obj.style.left = L + 'px';
+                        obj.style.top = ev.clientY - disY + 'px';
+                    };
+
+                    document.onmouseup = function() {
+                        document.onmousemove = document.onmouseup = null;
+                        //释放全局捕获 releaseCapture();
+                        if ( obj.releaseCapture ) {
+                            obj.releaseCapture();
+                        }
+                    };
+                    return false;
+
+                }
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+
+</body>
+</html>

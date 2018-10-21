@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<script type="text/javascript">
+     let ali = document.getElementsByTagName('li');
+    for(let i = 0; i<ali.length; i++){
+        ali[i].onclick = function () {
+            alert(i);
+        }
+    }
+
+    // let ali = document.getElementsByTagName('li');
+    // for(var i = 0; i<ali.length; i++){
+    //     ali[i].onclick = (function (a) {
+    //         return function () {
+    //             alert(a);
+    //         }
+    //     })(i)
+    // }
+
+    // for( var i = 0 ; i < ali.length; i++)
+    // {
+    //     (function (a) {
+    //         ali[i].onclick = function () {
+    //             alert(a);
+    //         }
+    //     })(i);
+    // }
+
+
+</script>
+</body>
+</html>

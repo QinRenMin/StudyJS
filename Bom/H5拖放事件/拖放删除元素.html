@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        ul li{
+            background: yellow;
+            list-style: none;
+            margin-top: 10px;
+            width: 200px;
+            height: 50px;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background: #00c6ff;
+            position: absolute;
+            left:200px;
+            top:250px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            let oUl = document.querySelector("#ul1");
+            let aLi = oUl.getElementsByTagName("li");
+            let oDiv = document.querySelector("#div1");
+            //拖拽元素事件
+            for(let i = 0; i < aLi.length;i++){
+                aLi[i].index = i;
+                aLi[i].ondragstart = function (ev) {
+                    this.style.background = "red";
+                    //setData设置数据key和value
+                    ev.dataTransfer.setData("index",this.index);
+                };
+                aLi[i].ondragend = function () {
+                    this.style.background = "yellow";
+                }
+            }
+
+            //目标事件
+            oDiv.ondragenter = function(){
+
+                this.style.background = "gray";
+
+            };
+            oDiv.ondragleave = function () {
+
+                this.style.background = "red";
+            };
+            oDiv.ondragover = function(ev){
+                ev.preventDefault();
+            };
+
+            oDiv.ondrop = function (ev) {
+                // alert(ev.dataTransfer.getData("index"));
+                oUl.removeChild(aLi[ev.dataTransfer.getData("index")]);
+                for(let i = 0; i < aLi.length;i++){
+                    aLi[i].index = i;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+<ul id="ul1">
+    <li draggable="true">1</li>
+    <li draggable="true">2</li>
+    <li draggable="true">3</li>
+</ul>
+<div id="div1"></div>
+
+</body>
+</html>
