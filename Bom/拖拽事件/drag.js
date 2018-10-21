@@ -3,8 +3,8 @@ function drag(obj) {
     obj.onmousedown = function(ev) {
         ev = ev || event;
 
-        const  disX = ev.clientX - this.offsetLeft;
-        const  disY = ev.clientY - this.offsetTop;
+        const  disX =  ev.clientX - this.offsetLeft;
+        const  disY =  ev.clientY - this.offsetTop;
 
         if ( obj.setCapture ) {
             obj.setCapture();
