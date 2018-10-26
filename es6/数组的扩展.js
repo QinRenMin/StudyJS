@@ -58,9 +58,9 @@ console.log(arr3.findIndex((item) => {return item === 6;}));//-1
 作用：判断数组有没有某一项
 返回值：布尔值
   */
-let arr3 = [1,2,3,3,4,5,2];
-console.log(arr3.includes(5)); //true
-console.log(arr3.includes(6)); //false
+let arr7 = [1,2,3,3,4,5,2];
+console.log(arr7.includes(5)); //true
+console.log(arr7.includes(6)); //false
 
 /*5.reduceRight()和reduce()
 作用：数组迭代((prev,curr),初始值（用于reduce()）)

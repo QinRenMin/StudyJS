@@ -8,3 +8,8 @@
 *      其他一样
 * 注意：在比较每一个数值时，使用全等操作
 * */
+let arr= [1,2,3,4,4,3,2];
+console.log(arr.indexOf(2)); //1
+console.log(arr.indexOf(5)); //-1
+console.log(arr.lastIndexOf(2)); //6
+console.log(arr.lastIndexOf(5)); //-1
