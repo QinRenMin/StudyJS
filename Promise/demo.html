@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Promise基本实例</title>
+    <script src="../jquery/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <script type="text/javascript">
+    let p = new Promise(function (resolve,reject) {
+        //异步代码
+        //resolve成功了
+        //reject失败了
+    $.ajax({
+        url:"../data/demo.txt",
+        dataType:'json',
+        success(arr){
+            resolve(arr);
+        },
+        error(err){
+            reject(err);
+        }
+    })
+    });
+    p.then(function (arr) {
+        alert("成功了");
+        console.log(arr);
+    },function (err) {
+        alert("失败了" + err);
+
+    })
 </script>
 </body>
 </html>
