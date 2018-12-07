@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise race</title>
+    <script src="../jquery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    let p1 = new Promise((resolve,reject) => {
+        $.ajax({
+            url:"../data/demo.txt",
+            dataType:'json',
+            success(arr){
+                resolve(arr);
+            },
+            error(err){
+                reject(err);
+            }
+        })
+    });
+    let p2 = new Promise((resolve,reject) => {
+        $.ajax({
+            url:"../data/test.txt",
+            dataType:'json',
+            success(arr){
+                resolve(arr);
+            },
+            error(err){
+                reject(err);
+            }
+        })
+    });
+    Promise.race([p1,p2]).then(result => console.log(result),err => console.log(err));
+</script>
+</body>
+</html>
