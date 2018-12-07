@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    function *show(){
+        alert('a');
+        let a = yield ;
+        alert('b');
+        alert(a);
+    }
+    let genObj = show();
+    genObj.next(12); //next函数调用的第一个传入参数是无用的
+    genObj.next(11);
+
+</script>
+</body>
+</html>

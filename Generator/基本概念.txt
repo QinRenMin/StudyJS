@@ -1,0 +1,10 @@
+generator:生成器
+yield:
+传参数，第一个next无法传参数
+返回值，中间结果
+
+异步操作的方法：
+1.回调函数
+2.Promise
+3.Generator
+

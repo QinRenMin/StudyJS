@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>yield返回值</title>
+</head>
+<body>
+<script type ="text/javascript" >
+    function *show() {
+        alert('a');
+        yield 11;
+        alert('b');
+        return 22;
+    }
+    let genBoj = show();
+    let res1 = genBoj.next();
+    let res2 = genBoj.next();
+    console.log(res1); //{value: 11, done: false}
+    console.log(res2); //{value: undefined, done: true},undefined靠return的值,如22
+</script>
+</body>
+</html>

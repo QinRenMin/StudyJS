@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise测试</title>
+    <script src="../jquery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+Promise.all([
+    $.ajax({
+        url:"../data/test.txt",
+        dataType:'json'
+    }),
+    $.ajax({
+        url:"../data/demo.txt",
+        dataType: 'json'
+    })
+]).then(results=>{
+    let [arr1,arr2] = results;
+    alert("success");
+    console.log(arr1);
+    console.log(arr2);
+},err=>{
+    alert("失败");
+    console.log(err);
+})
+</script>
+</body>
+</html>
