@@ -1,6 +1,6 @@
 /*
 * Array.of()
-* Array.form()
+* Array.from()
 * copyWithin()
 * fill()
 * find()和findIndex()
@@ -21,7 +21,7 @@ console.log(b); // 六个空位的数组
 console.log(Array.of(2,3,4)); //[2,3,4]
 console.log(Array.of(6)); //[6]
 
-// Array.form(数组/类数组)，返回一个数组
+// Array.from(数组/类数组)，返回一个数组
 
 console.log(Array.from([1,2,3])); //[1,2,3]
 console.log(Array.from('123')); //[ '1', '2', '3' ]
