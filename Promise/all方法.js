@@ -1,3 +1,4 @@
+//并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调
 function setAnsyc1() {
     let p1 = new Promise(function (resolve,reject) {
         setTimeout(function () {
@@ -26,25 +27,10 @@ function setAnsyc3() {
     return p3;
 }
 
-setAnsyc1().then(function (data) {
-    console.log(data);
-    return setAnsyc2();
-}).then(function (data) {
-    console.log(data);
-    return setAnsyc3();
-    // return '直接返回数据';
-}).then(function (data) {
-    console.log(data);
+Promise.all([setAnsyc1(),setAnsyc2(),setAnsyc3()]).then(function (results) {
+    console.log(results)
 });
 //1执行完成
-// 输入数据1
 // 2执行完成
-// 输入数据2
 // 3执行完成
-// 输入数据3
-
-//1执行完成
-// 输入数据1
-// 2执行完成
-// 输入数据2
-//直接返回数据
+// [ '输入数据1', '输入数据2', '输入数据3' ]

@@ -23,3 +23,8 @@ function setAsync(callback) {
 setAsync(function (data) {
     console.log(data);
 });
+
+//２执行完成
+// 数据2传出
+// 执行完成
+// 传入数据
