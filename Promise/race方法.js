@@ -1,5 +1,6 @@
 //并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调
-//谁跑得慢，以谁为准执行回调
+//谁跑得快，以谁为准执行回调
+
 function setAnsyc1() {
     let p1 = new Promise(function (resolve,reject) {
         setTimeout(function () {
@@ -14,7 +15,7 @@ function setAnsyc2() {
         setTimeout(function () {
             console.log("2执行完成");
             resolve("输入数据2")
-        },200)
+        },2000)
     });
     return p2;
 }
@@ -28,10 +29,10 @@ function setAnsyc3() {
     return p3;
 }
 
-Promise.all([setAnsyc1(),setAnsyc2(),setAnsyc3()]).then(function (results) {
-    console.log(results)
+Promise.race([setAnsyc1(),setAnsyc2(),setAnsyc3()]).then(function (result) {
+    console.log(result)
 });
-//2执行完成
-// 3执行完成
+//3执行完成
+// 输入数据3
 // 1执行完成
-// [ '输入数据1', '输入数据2', '输入数据3' ]
+// 2执行完成
