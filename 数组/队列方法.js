@@ -13,9 +13,10 @@
 
 let arr = new Array('yellow');
 console.log("原数组长度: "+arr.length+arr);//1yellow
-arr.unshift("blue","green");
+let count = arr.unshift("blue","green");
 console.log("添加数据后数组长度： "+arr.length+arr); //3blue,green,yellow
 
 let item = arr.shift();
 console.log("删除的数据信息： "+item); // blue
 console.log("删除后组长度 ："+arr.length+arr );//2green,yellow
+console.log(item,count);

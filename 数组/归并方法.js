@@ -15,8 +15,17 @@
 * */
 let arr = [2,4,6,7];
 let result = arr.reduce(function (pre,cur,index,arr) {
-    // console.log(pre);1,3,7,13,20
+    // console.log(pre);//1,3,7,13
+    // console.log(cur);// 2 4 6 7
     return pre+cur;
 },1);
 console.log(result); //20
+//reduceRight()和上面方法相似，操作顺序不同
+
+let result1 = arr.reduce(function (pre,cur,index,arr) {
+      console.log(pre);//2,6,7,12
+     // console.log(cur);// 4 6 7
+    return pre+cur;
+});
+console.log(result1); //19
 //reduceRight()和上面方法相似，操作顺序不同
